@@ -6,7 +6,7 @@ const Cat = models.Cat.CatModel;
 
 const Dog = models.Dog.DogModel;
 
-var test = 0;
+let test = 0;
 
 // default fake data so that we have something to work with until we make a real Cat
 const defaultData = {
@@ -77,10 +77,10 @@ const readCat = (req, res) => {
 
 const readDog = (req, res) => {
   const name1 = req.query.name;
-  
+
   const callback = (err, doc) => {
     if (err) {
-      return res.json({ err }); 
+      return res.json({ err });
     }
 
     return res.json(doc);
@@ -193,7 +193,7 @@ const setName = (req, res) => {
     // This way we can update it dynamically
     lastAdded = newCat;
     // return success
-    res.json({ animal:"Cat", name: lastAdded.name, beds: lastAdded.bedsOwned });
+    res.json({ animal: 'Cat', name: lastAdded.name, beds: lastAdded.bedsOwned });
   });
 
   // if error, return it
@@ -220,7 +220,7 @@ const setDogName = (req, res) => {
   };
 
   const newDog = new Dog(dogData);
-  
+
   // create new save promise for the database
   const savePromise = newDog.save();
 
@@ -229,7 +229,7 @@ const setDogName = (req, res) => {
     // This way we can update it dynamically
     lastAdded = newDog;
     // return success
-    res.json({ animal:"Dog", name: lastAdded.name, age: lastAdded.age });
+    res.json({ animal: 'Dog', name: lastAdded.name, age: lastAdded.age });
   });
 
   // if error, return it
@@ -259,7 +259,7 @@ const searchName = (req, res) => {
   // together so it's easier to see how the system works
   // For that reason, I gave it an anonymous callback instead of a
   // named function you'd have to go find
-  
+
   return Cat.findByName(req.query.name, (err, doc) => {
     // errs, handle them
     if (err) {
@@ -269,11 +269,11 @@ const searchName = (req, res) => {
     // if no matches, let them know
     // (does not necessarily have to be an error since technically it worked correctly)
     if (!doc) {
-      return res.json({ error: 'No cats found'});
+      return res.json({ error: 'No cats found' });
     }
 
     // if a match, send the match back
-    return res.json({ animal:"Cat", name: doc.name, beds: doc.bedsOwned });
+    return res.json({ animal: 'Cat', name: doc.name, beds: doc.bedsOwned });
   });
 };
 
@@ -296,10 +296,10 @@ const searchDogName = (req, res) => {
   // together so it's easier to see how the system works
   // For that reason, I gave it an anonymous callback instead of a
   // named function you'd have to go find
-  
+
   return Dog.findByName(req.query.name, (err, doc) => {
     // errs, handle them
-    
+
     if (err) {
       return res.json({ err }); // if error, return it
     }
@@ -311,12 +311,10 @@ const searchDogName = (req, res) => {
     }
 
     // if a match, send the match back
-    else{
-      test++;
-      return res.json({ animal:"Dog", name: doc.name, breed: doc.breed, age: doc.age+test });
-    }
+
+    test++;
+    return res.json({ animal: 'Dog', name: doc.name, breed: doc.breed, age: doc.age + test });
   });
-  
 };
 
 // function to handle a request to update the last added object
@@ -368,6 +366,7 @@ module.exports = {
   page3: hostPage3,
   page4: hostPage4,
   readCat,
+  readDog,
   getName,
   setName,
   setDogName,
