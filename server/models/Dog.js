@@ -74,12 +74,12 @@ const DogSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
-  
+
   age: {
     type: Number,
     required: true,
   },
-  
+
   createdDate: {
     type: Date,
     default: Date.now,
@@ -115,13 +115,9 @@ DogSchema.statics.findByName = (name, callback) => {
   return DogModel.findOne(search, callback);
 };
 
-// Create the cat model based on the schema. You provide it with a custom discriminator
-// (the name of the object type. Can be anything)
-// and the schema to make a model from.
-// Look at the model variable definition above for more details.
-DogModel = mongoose.model('Cat', CatSchema);
+
+DogModel = mongoose.model('Dog', DogSchema);
 
 
-// export our public properties
 module.exports.DogModel = DogModel;
 module.exports.DogSchema = DogSchema;
